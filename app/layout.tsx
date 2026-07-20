@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-main",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "CrossFit Oxygen | أفضل جيم كروس فيت في العبور",
+  metadataBase: new URL("https://crossfit-oxygen.vercel.app"),
+
+  title: {
+    default: "CrossFit Oxygen",
+    template: "%s | CrossFit Oxygen",
+  },
 
   description:
-    "CrossFit Oxygen هو جيم متخصص في الكروس فيت واللياقة البدنية في مدينة العبور. برامج تدريب، مدربين محترفين، وتمارين تناسب جميع المستويات.",
+    "أفضل جيم كروس فيت بمدينة العبور. برامج تدريب احترافية، Personal Training، تدريبات للسيدات، ومدربين محترفين.",
 
   keywords: [
     "CrossFit",
@@ -24,10 +25,12 @@ export const metadata: Metadata = {
     "CrossFit Obour",
     "Gym",
     "Fitness",
+    "Personal Training",
+    "CrossFit Oxygen",
     "جيم",
     "كروس فيت",
+    "لياقة",
     "العبور",
-    "لياقة بدنية",
   ],
 
   authors: [{ name: "CrossFit Oxygen" }],
@@ -40,11 +43,17 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "CrossFit Oxygen",
-    description: "أفضل جيم كروس فيت في مدينة العبور",
+    description: "أفضل جيم كروس فيت بمدينة العبور",
     url: "https://crossfit-oxygen.vercel.app",
     siteName: "CrossFit Oxygen",
     locale: "ar_EG",
     type: "website",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
@@ -57,9 +66,9 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="bg-black text-white antialiased">
         {children}
       </body>
     </html>
