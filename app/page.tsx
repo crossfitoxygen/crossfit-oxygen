@@ -1,8 +1,10 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Gallery from "./components/Gallery";
+import Branches from "./components/Branches";
+import Gallery from "./components/gallery/Gallery";
 import Stats from "./components/Stats";
 import Services from "./components/Services";
+import ClassSchedule from "./components/ClassSchedule";
 import WhyChoose from "./components/WhyChoose";
 import Marquee from "./components/Marquee";
 import Coaches from "./components/Coaches";
@@ -10,6 +12,8 @@ import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import LoadingScreen from "./components/LoadingScreen";
 import BackToTop from "./components/BackToTop";
+import Reveal from "./components/Reveal";
+
 export default function Home() {
   return (
     <>
@@ -20,20 +24,41 @@ export default function Home() {
 
         <Hero />
 
-        <Gallery />
+        <Reveal>
+          <Branches />
+        </Reveal>
 
-        <Stats />
+        <Reveal delay={0.1}>
+          <Gallery />
+        </Reveal>
 
-        <Services />
+        <Reveal delay={0.2}>
+          <Stats />
+        </Reveal>
 
-        <WhyChoose />
+        <Reveal delay={0.3}>
+          <Services />
+        </Reveal>
 
-        {/* الشريط المتحرك */}
-        <Marquee />
+        <Reveal delay={0.4}>
+          <WhyChoose />
+        </Reveal>
 
-        <Coaches />
+       <Reveal delay={0.5}>
+       <ClassSchedule />
+       </Reveal>
 
-        <Footer />
+        <Reveal delay={0.6}>
+          <Marquee />
+        </Reveal>
+
+        <Reveal delay={0.7}>
+          <Coaches />
+        </Reveal>
+
+        <Reveal delay={0.8}>
+          <Footer />
+        </Reveal>
 
         <FloatingWhatsApp />
 

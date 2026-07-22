@@ -11,11 +11,33 @@ import {
   FaClock,
 } from "react-icons/fa";
 
+const branches = [
+  {
+    name: "فرع العبور",
+    phone: "01107802016",
+    address: "مدينة العبور - الحي الترفيهي - مول ONE WAY",
+    map: "https://maps.app.goo.gl/3oFyyqpJuHe3yK718?g_st=iw",
+  },
+  {
+    name: "فرع الزقازيق",
+    phone: "01111111111",
+    address: "مدينة الزقازيق",
+    map: "https://maps.app.goo.gl/nRoZ88PGwsV7fjn16?g_st=iw",
+  },
+  {
+    name: "فرع الرحاب",
+    phone: "01106385482",
+    address: "مدينة الرحاب",
+    map: "https://maps.app.goo.gl/FTymPdcq7hafNX649?g_st=iw",
+  },
+];
+
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-yellow-500/20 bg-black text-white">
 
       {/* Background Glow */}
+
       <div className="absolute inset-0">
         <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
         <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
@@ -26,7 +48,6 @@ export default function Footer() {
         {/* Logo */}
 
         <div className="flex justify-center">
-
           <Image
             src="/logo.png"
             alt="CrossFit Oxygen"
@@ -34,7 +55,6 @@ export default function Footer() {
             height={170}
             className="drop-shadow-[0_0_30px_rgba(250,204,21,.6)]"
           />
-
         </div>
 
         <h2 className="mt-6 text-center text-4xl font-black text-yellow-400">
@@ -43,84 +63,105 @@ export default function Footer() {
 
         <p className="mx-auto mt-5 max-w-2xl text-center leading-8 text-gray-400">
           CrossFit • Fitness • Strength • Community
-          <br />
         </p>
 
-        {/* Contact */}
+        {/* Branches */}
 
-        <div className="mt-16 grid gap-10 md:grid-cols-3">
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
 
-          <div className="text-center">
+          {branches.map((branch) => (
 
-            <FaMapMarkerAlt className="mx-auto mb-4 text-3xl text-yellow-400" />
-
-            <h3 className="mb-3 text-xl font-bold">
-              العنوان
-            </h3>
-
-            <p className="leading-8 text-gray-400">
-              مدينة العبور
-              <br />
-              الحي الترفيهي
-              <br />
-              مول ONE WAY
-            </p>
-
-            <a
-              href="https://maps.app.goo.gl/3oFyyqpJuHe3yK718?g_st=iw"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-block rounded-full bg-yellow-400 px-5 py-2 font-semibold text-black transition hover:scale-105"
+            <div
+              key={branch.name}
+              className="rounded-3xl border border-yellow-500/20 bg-zinc-900/60 p-8 transition duration-300 hover:border-yellow-400 hover:shadow-[0_0_25px_rgba(250,204,21,.2)]"
             >
-              📍 افتح الموقع
-            </a>
 
-          </div>
+              <h3 className="mb-6 text-center text-2xl font-bold text-yellow-400">
+                {branch.name}
+              </h3>
 
-          <div className="text-center">
+              <div className="space-y-5">
 
-            <FaPhoneAlt className="mx-auto mb-4 text-3xl text-yellow-400" />
+                <div className="flex items-start gap-3">
 
-            <h3 className="mb-3 text-xl font-bold">
-              اتصل بنا
-            </h3>
+                  <FaMapMarkerAlt className="mt-1 text-yellow-400" />
 
-            <a
-              href="tel:01107802016"
-              className="text-lg text-gray-400 transition hover:text-yellow-400"
-            >
-              01107802016
-            </a>
+                  <span className="text-gray-300">
+                    {branch.address}
+                  </span>
 
-          </div>
+                </div>
 
-          <div className="text-center">
+                <div className="flex items-center gap-3">
 
-            <FaClock className="mx-auto mb-4 text-3xl text-yellow-400" />
+                  <FaPhoneAlt className="text-yellow-400" />
 
-            <h3 className="mb-3 text-xl font-bold">
-              مواعيد العمل
-            </h3>
+                  <a
+                    href={`tel:${branch.phone}`}
+                    className="text-gray-300 hover:text-yellow-400"
+                  >
+                    {branch.phone}
+                  </a>
 
-            <p className="leading-8 text-gray-400">
+                </div>
 
-              السبت - الخميس
+                <div className="flex gap-3 pt-2">
 
-              <br />
+                  <a
+                    href={`https://wa.me/2${branch.phone}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 rounded-full bg-green-500 py-3 text-center font-bold transition hover:scale-105"
+                  >
+                    واتساب
+                  </a>
 
-              7:00AM - 2:00AM
+                  <a
+                    href={branch.map}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 rounded-full border border-yellow-500 py-3 text-center font-bold text-yellow-400 transition hover:bg-yellow-400 hover:text-black"
+                  >
+                    الموقع
+                  </a>
 
-              <br /><br />
+                </div>
 
-              الجمعة
+              </div>
 
-              <br />
+            </div>
 
-              4:00PM - 12:00AM
+          ))}
 
-            </p>
+        </div>
 
-          </div>
+        {/* Working Hours */}
+
+        <div className="mt-16 rounded-3xl border border-yellow-500/20 bg-zinc-900/60 p-8 text-center">
+
+          <FaClock className="mx-auto mb-5 text-4xl text-yellow-400" />
+
+          <h3 className="mb-6 text-3xl font-bold text-yellow-400">
+            مواعيد العمل
+          </h3>
+
+          <p className="leading-9 text-gray-300">
+
+            السبت - الخميس
+
+            <br />
+
+            7:00 AM - 2:00 AM
+
+            <br /><br />
+
+            الجمعة
+
+            <br />
+
+            4:00 PM - 12:00 AM
+
+          </p>
 
         </div>
 
@@ -134,13 +175,13 @@ export default function Footer() {
           تابعنا
         </h3>
 
-        <div className="flex justify-center gap-6 flex-wrap">
+        <div className="flex flex-wrap justify-center gap-6">
 
           <a
             href="https://wa.me/201107802016"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-all duration-300 hover:scale-110 hover:bg-green-500"
+            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-green-500"
           >
             <FaWhatsapp size={28} />
           </a>
@@ -149,7 +190,7 @@ export default function Footer() {
             href="https://www.instagram.com/crossfit_oxygen_"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-all duration-300 hover:scale-110 hover:bg-pink-500"
+            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-pink-500"
           >
             <FaInstagram size={28} />
           </a>
@@ -158,7 +199,7 @@ export default function Footer() {
             href="https://www.facebook.com/share/19N5gxCUKi/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-all duration-300 hover:scale-110 hover:bg-blue-600"
+            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-blue-600"
           >
             <FaFacebookF size={26} />
           </a>
@@ -167,7 +208,7 @@ export default function Footer() {
             href="https://www.tiktok.com/@crossfitoxygen"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black"
+            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-white hover:text-black"
           >
             <FaTiktok size={26} />
           </a>

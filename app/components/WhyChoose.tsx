@@ -98,25 +98,6 @@ export default function WhyChoose() {
 
         <div className="mt-20 text-center">
 
-          <a
-            href="https://wa.me/201107802016"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-block
-              rounded-full
-              bg-yellow-400
-              px-10
-              py-4
-              text-lg
-              font-bold
-              text-black
-              transition
-              hover:scale-105
-            "
-          >
-            🔥 اعرف أحدث العروض على واتساب
-          </a>
 
         </div>
 

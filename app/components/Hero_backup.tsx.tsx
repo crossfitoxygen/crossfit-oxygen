@@ -2,24 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import BranchModal from "./BranchModal";
-import CountUp from "react-countup";
-import { useInView } from "react-intersection-observer";
+
 const slogans = [
   "NO LIMITS • NO EXCUSES",
   "STRONGER EVERY DAY",
   "BUILD YOUR BEST VERSION",
-  "DISCIPLINE BEATS MOTIVATION",
 ];
 
 export default function Hero() {
   const [openModal, setOpenModal] = useState(false);
+
   const [textIndex, setTextIndex] = useState(0);
-  const { ref, inView } = useInView({
-  triggerOnce: true,
-  threshold: 0.4,
-});
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,9 +26,9 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black text-white">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden text-white">
 
-        {/* Video Background */}
+        {/* Video */}
 
         <video
           autoPlay
@@ -47,38 +42,25 @@ export default function Hero() {
 
         {/* Overlay */}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black"></div>
+        <div className="absolute inset-0 bg-black/70" />
 
         {/* Golden Glow */}
 
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.15, 0.25, 0.15],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-          }}
-          className="absolute h-[850px] w-[850px] rounded-full bg-yellow-400/10 blur-[180px]"
-        />
+        <div className="absolute h-[750px] w-[750px] rounded-full bg-yellow-400/10 blur-[170px]" />
 
-        {/* Background Logo */}
+        {/* Logo */}
 
         <motion.div
           initial={{
             opacity: 0,
-            scale: .7,
+            scale: .8,
           }}
           animate={{
-            opacity: .12,
+            opacity: .15,
             scale: 1,
-            rotate: 360,
           }}
           transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear",
+            duration: 1.5,
           }}
           className="absolute"
         >
@@ -88,18 +70,18 @@ export default function Hero() {
             width={430}
             height={430}
             priority
-            className="select-none"
+            className="select-none drop-shadow-[0_0_80px_rgba(250,204,21,.6)]"
           />
         </motion.div>
 
-        {/* Hero Content */}
+        {/* Hero */}
 
-        <div className="relative z-20 mx-auto max-w-6xl px-6 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
 
           <motion.h1
             initial={{
               opacity: 0,
-              y: 80,
+              y: 70,
             }}
             animate={{
               opacity: 1,
@@ -108,36 +90,33 @@ export default function Hero() {
             transition={{
               duration: 1,
             }}
-            className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-6xl font-black tracking-[8px] text-transparent md:text-8xl lg:text-9xl"
+            className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-6xl font-black tracking-[6px] text-transparent md:text-8xl lg:text-9xl"
           >
             CROSSFIT OXYGEN
           </motion.h1>
 
-          <AnimatePresence mode="wait">
+          {/* Animated Text */}
 
-            <motion.p
-              key={textIndex}
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -20,
-              }}
-              transition={{
-                duration: .4,
-              }}
-              className="mt-7 text-lg font-bold uppercase tracking-[6px] text-yellow-400 md:text-2xl"
-            >
-              {slogans[textIndex]}
-            </motion.p>
-
-          </AnimatePresence>
+          <motion.p
+            key={textIndex}
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration: .5,
+            }}
+            className="mt-7 text-lg font-bold uppercase tracking-[6px] text-yellow-400 md:text-2xl"
+          >
+            {slogans[textIndex]}
+          </motion.p>
 
           <motion.p
             initial={{
@@ -147,11 +126,13 @@ export default function Hero() {
               opacity: 1,
             }}
             transition={{
-              delay: .7,
+              delay: .8,
             }}
             className="mx-auto mt-10 max-w-3xl text-lg leading-9 text-gray-300 md:text-xl"
           >
+            أكبر مجتمع CrossFit في مصر.
             <br />
+            انضم إلينا وابدأ رحلتك نحو القوة واللياقة مع أفضل المدربين.
           </motion.p>
                     {/* Buttons */}
 
@@ -171,7 +152,7 @@ export default function Hero() {
           >
             <button
               onClick={() => setOpenModal(true)}
-              className="rounded-full bg-yellow-400 px-10 py-4 text-lg font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(250,204,21,.7)]"
+              className="rounded-full bg-yellow-400 px-10 py-4 text-lg font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(250,204,21,.7)]"
             >
               🔥 اشترك الآن
             </button>
@@ -193,7 +174,6 @@ export default function Hero() {
           {/* Stats */}
 
           <motion.div
-          ref={ref}
             initial={{
               opacity: 0,
             }}
@@ -203,69 +183,42 @@ export default function Hero() {
             transition={{
               delay: 1.3,
             }}
-            className="mx-auto mt-20 grid max-w-2xl grid-cols-3 gap-6"
+            className="mx-auto mt-20 grid max-w-2xl grid-cols-3 gap-8"
           >
-            <motion.div
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md"
-            >
-             <h3 className="text-5xl font-black text-yellow-400">
-                +
-              {inView && (
-              <CountUp
-             end={5000}
-             duration={3}
-              separator=","
-              />
-              )}
-                  </h3>
+            <div className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md">
+              <h3 className="text-5xl font-black text-yellow-400">
+                +5000
+              </h3>
 
               <p className="mt-3 text-gray-300">
                 عضو نشط
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md"
-            >
-             <h3 className="text-5xl font-black text-yellow-400">
-              +
-             {inView && (
-              <CountUp
-               end={7}
-              duration={2}
-             />
-          )}
-               </h3>
+            <div className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md">
+              <h3 className="text-5xl font-black text-yellow-400">
+                +7
+              </h3>
 
               <p className="mt-3 text-gray-300">
                 سنوات خبرة
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md"
-            >
+            <div className="rounded-2xl border border-yellow-500/20 bg-white/5 p-6 backdrop-blur-md">
               <h3 className="text-5xl font-black text-yellow-400">
-              {inView && (
-  <CountUp
-    end={3}
-    duration={2}
-  />
-)}
-                </h3>
+                3
+              </h3>
 
               <p className="mt-3 text-gray-300">
                 فروع
               </p>
-            </motion.div>
-
+            </div>
           </motion.div>
 
         </div>
-                {/* Scroll Down */}
+
+        {/* Scroll Down */}
 
         <button
           onClick={() =>
@@ -278,11 +231,10 @@ export default function Hero() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
         >
           <div className="flex h-16 w-10 justify-center rounded-full border-2 border-yellow-400">
-            <div className="mt-3 h-3 w-3 rounded-full bg-yellow-400 animate-pulse" />
+            <div className="mt-3 h-3 w-3 animate-pulse rounded-full bg-yellow-400" />
           </div>
         </button>
-
-      </section>
+              </section>
 
       {/* Branch Selection Modal */}
 
