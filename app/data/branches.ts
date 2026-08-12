@@ -16,7 +16,7 @@ export const branches = [
   {
     id: "zagazig",
     name: "فرع الزقازيق",
-    image: "/branches/zagazig.jpeg",
+    image: "/branches/zagazig.jpg",
 
     address: "الزقازيق",
 
@@ -33,7 +33,7 @@ export const branches = [
   {
     id: "rehab",
     name: "فرع الرحاب",
-    image: "/branches/rehab.jpeg",
+    image: "/branches/rehab.jpg",
 
     address: "مدينة الرحاب",
 
