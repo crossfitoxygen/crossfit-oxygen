@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   X,
   ChevronLeft,
   ChevronRight,
+  MapPin,
 } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 
@@ -33,13 +34,14 @@ const branches = [
     phone: "01111111111",
     map: "https://maps.app.goo.gl/nRoZ88PGwsV7fjn16?g_st=iw",
     images: [
-      "/gallery1.jpeg",
-      "/gallery2.jpeg",
-      "/gallery3.jpeg",
-      "/gallery4.jpeg",
-      "/gallery5.jpeg",
-      "/gallery6.jpeg",
-      "/gallery7.jpeg",
+      "/branches/zagazig/zag-1.jpg",
+      "/branches/zagazig/zag-2.jpg",
+      "/branches/zagazig/zag-3.jpg",
+      "/branches/zagazig/zag-4.jpg",
+      "/branches/zagazig/zag-5.jpg",
+      "/branches/zagazig/zag-6.jpg",
+      "/branches/zagazig/zag-7.jpg",
+      "/branches/zagazig/zag-8.jpg",
     ],
   },
 
@@ -49,113 +51,138 @@ const branches = [
     phone: "01106385482",
     map: "https://maps.app.goo.gl/FTymPdcq7hafNX649?g_st=iw",
     images: [
-      "/gallery1.jpeg",
-      "/gallery2.jpeg",
-      "/gallery3.jpeg",
-      "/gallery4.jpeg",
-      "/gallery5.jpeg",
-      "/gallery6.jpeg",
-      "/gallery7.jpeg",
+      "/branches/rehab/rehab-1.jpg",
+      "/branches/rehab/rehab-2.jpg",
     ],
   },
 ];
 
 export default function Gallery() {
   const [branchIndex, setBranchIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] =
-    useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const currentBranch = branches[branchIndex];
   const images = currentBranch.images;
-    useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedIndex === null) return;
 
-      if (e.key === "Escape") {
+  // Keyboard controls
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setSelectedIndex(null);
+        return;
       }
 
-      if (e.key === "ArrowRight") {
-        setSelectedIndex((prev) =>
-          prev === null
-            ? null
-            : prev === images.length - 1
+      if (event.key === "ArrowRight") {
+        setSelectedIndex((previous) => {
+          if (previous === null) return null;
+
+          return previous === images.length - 1
             ? 0
-            : prev + 1
-        );
+            : previous + 1;
+        });
       }
 
-      if (e.key === "ArrowLeft") {
-        setSelectedIndex((prev) =>
-          prev === null
-            ? null
-            : prev === 0
+      if (event.key === "ArrowLeft") {
+        setSelectedIndex((previous) => {
+          if (previous === null) return null;
+
+          return previous === 0
             ? images.length - 1
-            : prev - 1
-        );
+            : previous - 1;
+        });
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
-    return () =>
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [selectedIndex, images.length]);
 
+  // Lock page scroll while image is open
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [selectedIndex]);
+
+  const showPrevious = () => {
+    setSelectedIndex((previous) => {
+      if (previous === null) return null;
+
+      return previous === 0
+        ? images.length - 1
+        : previous - 1;
+    });
+  };
+
+  const showNext = () => {
+    setSelectedIndex((previous) => {
+      if (previous === null) return null;
+
+      return previous === images.length - 1
+        ? 0
+        : previous + 1;
+    });
+  };
+
+  // Mobile swipe
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (selectedIndex === null) return;
-
-      setSelectedIndex(
-        selectedIndex === images.length - 1
-          ? 0
-          : selectedIndex + 1
-      );
-    },
-
-    onSwipedRight: () => {
-      if (selectedIndex === null) return;
-
-      setSelectedIndex(
-        selectedIndex === 0
-          ? images.length - 1
-          : selectedIndex - 1
-      );
-    },
-
+    onSwipedLeft: showNext,
+    onSwipedRight: showPrevious,
     preventScrollOnSwipe: true,
     trackTouch: true,
+    trackMouse: false,
   });
 
   return (
     <section
       id="gallery"
-      className="bg-black py-24"
+      className="bg-black py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-        <h2 className="text-center text-5xl font-black text-yellow-400">
+        {/* العنوان */}
+        <motion.h2
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45 }}
+          className="text-center text-4xl font-black text-yellow-400 sm:text-5xl"
+        >
           معرض الصور
-        </h2>
+        </motion.h2>
 
-        <p className="mt-4 text-center text-gray-400">
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+          className="mt-4 text-center text-sm text-gray-400 sm:text-base"
+        >
           اختر الفرع واستكشف أجواء التدريب
-        </p>
+        </motion.p>
 
-        <div className="mt-12 mb-14 flex flex-wrap justify-center gap-4">
-
+        {/* أزرار الفروع */}
+        <div className="mt-10 flex flex-wrap justify-center gap-3 sm:mt-12">
           {branches.map((branch, index) => (
-
             <button
               key={branch.id}
+              type="button"
               onClick={() => {
                 setBranchIndex(index);
                 setSelectedIndex(null);
               }}
-              className={`rounded-full px-8 py-3 font-bold transition-all duration-300 ${
+              className={`rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 sm:px-8 sm:py-3 sm:text-base ${
                 branchIndex === index
                   ? "bg-yellow-400 text-black shadow-lg shadow-yellow-500/30"
                   : "border border-yellow-500/20 bg-zinc-900 text-white hover:border-yellow-400 hover:bg-zinc-800"
@@ -163,41 +190,72 @@ export default function Gallery() {
             >
               {branch.title}
             </button>
-
           ))}
-
         </div>
 
+        {/* معلومات الفرع */}
         <motion.div
-          key={currentBranch.id}
-          initial={{ opacity: 0, y: 25 }}
+          key={`${currentBranch.id}-info`}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: .4 }}
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          transition={{ duration: 0.3 }}
+          className="mb-8 mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
+          <h3 className="text-xl font-black text-white sm:text-2xl">
+            {currentBranch.title}
+          </h3>
 
-          {images.map((img, index) => (
-            <motion.div
-              key={`${currentBranch.id}-${index}`}
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: .25 }}
+          <a
+            href={currentBranch.map}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`فتح موقع ${currentBranch.title}`}
+            className="inline-flex items-center gap-2 rounded-full border border-yellow-400/30 bg-zinc-900 px-5 py-2.5 text-sm font-bold text-yellow-400 transition hover:bg-yellow-400 hover:text-black"
+          >
+            <MapPin size={18} />
+            الموقع على الخريطة
+          </a>
+        </motion.div>
+
+        {/* معرض صور الفرع */}
+        <motion.div
+          key={`${currentBranch.id}-gallery`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        >
+          {images.map((image, index) => (
+            <motion.button
+              key={`${currentBranch.id}-image-${index}`}
+              type="button"
+              whileHover={{ scale: 1.015 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setSelectedIndex(index)}
-              className="group cursor-pointer overflow-hidden rounded-3xl border border-yellow-500/20 bg-zinc-900"
+              className="group relative overflow-hidden rounded-2xl border border-yellow-500/20 bg-zinc-900 text-left sm:rounded-3xl"
+              aria-label={`فتح صورة ${index + 1} - ${currentBranch.title}`}
             >
-              <Image
-                src={img}
-                alt={`${currentBranch.title} ${index + 1}`}
-                width={700}
-                height={500}
-                loading="lazy"
-                className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
-              />
-            </motion.div>
-          ))}
+              <div className="relative aspect-[7/5] w-full">
 
+                <Image
+                  src={image}
+                  alt={`${currentBranch.title} - صورة ${index + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+
+              </div>
+            </motion.button>
+          ))}
         </motion.div>
       </div>
-            <AnimatePresence>
+
+      {/* Lightbox */}
+      <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
             {...swipeHandlers}
@@ -205,86 +263,110 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedIndex(null)}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 p-6"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 p-3 sm:p-6"
           >
-            {/* Close */}
+
+            {/* زر الإغلاق */}
             <button
+              type="button"
               onClick={() => setSelectedIndex(null)}
-              className="absolute top-6 right-6 rounded-full bg-black/40 p-3 text-white transition hover:text-yellow-400"
+              aria-label="إغلاق الصورة"
+              className="absolute right-3 top-3 z-20 rounded-full bg-black/60 p-2.5 text-white transition hover:text-yellow-400 sm:right-6 sm:top-6 sm:p-3"
             >
-              <X size={34} />
-            </button>
-
-            {/* Previous */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedIndex(
-                  selectedIndex === 0
-                    ? images.length - 1
-                    : selectedIndex - 1
-                );
-              }}
-              className="absolute left-6 rounded-full bg-black/40 p-3 text-white transition hover:text-yellow-400"
-            >
-              <ChevronLeft size={42} />
-            </button>
-
-            {/* Image */}
-            <motion.div
-              key={selectedIndex}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="flex flex-col items-center"
-            >
-              <Image
-                src={images[selectedIndex]}
-                alt={`${currentBranch.title}`}
-                width={1400}
-                height={900}
-                priority
-                className="max-h-[85vh] w-auto rounded-3xl"
+              <X
+                size={28}
+                className="sm:h-[34px] sm:w-[34px]"
               />
+            </button>
 
-              <div className="mt-6 text-center">
-                <h3 className="text-2xl font-bold text-yellow-400">
+            {/* السابق */}
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                showPrevious();
+              }}
+              aria-label="الصورة السابقة"
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition hover:text-yellow-400 sm:left-6 sm:p-3"
+            >
+              <ChevronLeft
+                size={32}
+                className="sm:h-[42px] sm:w-[42px]"
+              />
+            </button>
+
+            {/* الصورة الكبيرة */}
+            <motion.div
+              key={`${currentBranch.id}-${selectedIndex}`}
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+              className="flex max-w-full flex-col items-center"
+            >
+              <div className="relative flex max-h-[78vh] max-w-[88vw] items-center justify-center sm:max-h-[82vh] sm:max-w-[88vw]">
+
+                <Image
+                  src={images[selectedIndex]}
+                  alt={`${currentBranch.title} - صورة ${
+                    selectedIndex + 1
+                  }`}
+                  width={1400}
+                  height={900}
+                  sizes="(max-width: 640px) 88vw, 88vw"
+                  loading="eager"
+                  className="max-h-[78vh] w-auto max-w-full rounded-2xl object-contain sm:max-h-[82vh] sm:rounded-3xl"
+                />
+
+              </div>
+
+              {/* معلومات الصورة */}
+              <div className="mt-4 text-center sm:mt-6">
+
+                <h3 className="text-lg font-bold text-yellow-400 sm:text-2xl">
                   {currentBranch.title}
                 </h3>
 
-                <div className="mt-3 flex items-center justify-center gap-3">
-                  <div className="h-1 w-24 rounded-full bg-zinc-700">
+                <div className="mt-2 flex items-center justify-center gap-3 sm:mt-3">
+
+                  <div className="h-1 w-20 overflow-hidden rounded-full bg-zinc-700 sm:w-24">
                     <div
-                      className="h-1 rounded-full bg-yellow-400 transition-all duration-300"
+                      className="h-full rounded-full bg-yellow-400 transition-all duration-300"
                       style={{
-                        width: `${((selectedIndex + 1) / images.length) * 100}%`,
+                        width: `${
+                          ((selectedIndex + 1) /
+                            images.length) *
+                          100
+                        }%`,
                       }}
                     />
                   </div>
 
-                  <span className="text-sm text-gray-300">
+                  <span className="text-xs text-gray-300 sm:text-sm">
                     {selectedIndex + 1} / {images.length}
                   </span>
+
                 </div>
               </div>
             </motion.div>
 
-            {/* Next */}
+            {/* التالي */}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedIndex(
-                  selectedIndex === images.length - 1
-                    ? 0
-                    : selectedIndex + 1
-                );
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                showNext();
               }}
-              className="absolute right-6 rounded-full bg-black/40 p-3 text-white transition hover:text-yellow-400"
+              aria-label="الصورة التالية"
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition hover:text-yellow-400 sm:right-6 sm:p-3"
             >
-              <ChevronRight size={42} />
+              <ChevronRight
+                size={32}
+                className="sm:h-[42px] sm:w-[42px]"
+              />
             </button>
+
           </motion.div>
         )}
       </AnimatePresence>

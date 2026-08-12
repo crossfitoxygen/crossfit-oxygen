@@ -8,7 +8,7 @@ export const branches = [
 
     phone: "01107802016",
 
-    whatsapp: "201107802016",
+    whatsapp: ["201107802016"],
 
     map: "https://maps.app.goo.gl/3oFyyqpJuHe3yK718?g_st=iw",
   },
@@ -20,9 +20,12 @@ export const branches = [
 
     address: "الزقازيق",
 
-    phone: "01111111111",
+    phone: "01155404011",
 
-    whatsapp: "201111111111",
+    whatsapp: [
+      "201155404011",
+      "201155404099",
+    ],
 
     map: "https://maps.app.goo.gl/nRoZ88PGwsV7fjn16?g_st=iw",
   },
@@ -36,7 +39,7 @@ export const branches = [
 
     phone: "01106385482",
 
-    whatsapp: "201106385482",
+    whatsapp: ["201106385482"],
 
     map: "https://maps.app.goo.gl/FTymPdcq7hafNX649?g_st=iw",
   },

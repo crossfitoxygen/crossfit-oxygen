@@ -139,7 +139,7 @@ export default function Navbar() {
                 {item.name}
 
                 <span
-                  className={`absolute -bottom-2 left-0 h-[2px] bg-yellow-400 transition-all duration-300 ${
+                  className={`absolute -bottom-2 left-0 h-0.5 bg-yellow-400 transition-all duration-300 ${
                     activeSection === item.href
                       ? "w-full"
                       : "w-0 group-hover:w-full"

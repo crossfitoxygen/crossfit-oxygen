@@ -4,10 +4,8 @@ import Branches from "./components/Branches";
 import Gallery from "./components/gallery/Gallery";
 import Stats from "./components/Stats";
 import Services from "./components/Services";
-import ClassSchedule from "./components/ClassSchedule";
 import WhyChoose from "./components/WhyChoose";
 import Marquee from "./components/Marquee";
-import Coaches from "./components/Coaches";
 import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import LoadingScreen from "./components/LoadingScreen";
@@ -44,19 +42,11 @@ export default function Home() {
           <WhyChoose />
         </Reveal>
 
-       <Reveal delay={0.5}>
-       <ClassSchedule />
-       </Reveal>
-
-        <Reveal delay={0.6}>
+        <Reveal delay={0.5}>
           <Marquee />
         </Reveal>
 
-        <Reveal delay={0.7}>
-          <Coaches />
-        </Reveal>
-
-        <Reveal delay={0.8}>
+        <Reveal delay={0.6}>
           <Footer />
         </Reveal>
 
