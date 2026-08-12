@@ -7,7 +7,6 @@ import Services from "./components/Services";
 import WhyChoose from "./components/WhyChoose";
 import Marquee from "./components/Marquee";
 import Footer from "./components/Footer";
-import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import LoadingScreen from "./components/LoadingScreen";
 import BackToTop from "./components/BackToTop";
 import Reveal from "./components/Reveal";
@@ -49,8 +48,6 @@ export default function Home() {
         <Reveal delay={0.6}>
           <Footer />
         </Reveal>
-
-        <FloatingWhatsApp />
 
         <BackToTop />
       </main>
