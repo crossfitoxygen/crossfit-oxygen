@@ -46,7 +46,7 @@ export default function Hero() {
 
         {/* Golden Glow */}
 
-        <div className="absolute h-[750px] w-[750px] rounded-full bg-yellow-400/10 blur-[170px]" />
+        <div className="absolute h-187.5 w-187.5 rounded-full bg-yellow-400/10 blur-[170px]" />
 
         {/* Logo */}
 
@@ -90,7 +90,7 @@ export default function Hero() {
             transition={{
               duration: 1,
             }}
-            className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-6xl font-black tracking-[6px] text-transparent md:text-8xl lg:text-9xl"
+            className="bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-6xl font-black tracking-[6px] text-transparent md:text-8xl lg:text-9xl"
           >
             CROSSFIT OXYGEN
           </motion.h1>

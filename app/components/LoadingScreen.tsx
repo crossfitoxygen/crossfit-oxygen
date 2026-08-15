@@ -8,11 +8,11 @@ export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setLoading(false);
-    }, 1800);
+    }, 1200);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
@@ -21,47 +21,69 @@ export default function LoadingScreen() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black"
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="fixed inset-0 z-99999 flex items-center justify-center bg-black"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex w-full flex-col items-center px-6">
+            {/* Logo */}
 
             <motion.div
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              initial={{
+                scale: 0.85,
+                opacity: 0,
+              }}
+              animate={{
+                scale: 1,
+                opacity: 1,
+              }}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+              }}
             >
               <Image
                 src="/logo.png"
                 alt="CrossFit Oxygen"
-                width={170}
-                height={170}
+                width={150}
+                height={150}
                 priority
+                className="h-auto w-30 sm:w-37.5"
               />
             </motion.div>
 
+            {/* Brand */}
+
             <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: .4 }}
-              className="mt-6 text-3xl font-black text-yellow-400 tracking-wider"
+              initial={{
+                opacity: 0,
+                y: 10,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.2,
+                duration: 0.4,
+              }}
+              className="mt-5 text-center text-2xl font-black tracking-wider text-yellow-400 sm:text-3xl"
             >
               CROSSFIT OXYGEN
             </motion.h2>
 
-            <div className="mt-8 h-1 w-56 overflow-hidden rounded-full bg-zinc-800">
+            {/* Loading Bar */}
+
+            <div className="mt-7 h-1 w-48 overflow-hidden rounded-full bg-zinc-800 sm:w-56">
               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: "100%" }}
                 transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "linear",
+                  duration: 0.9,
+                  ease: "easeInOut",
                 }}
-                className="h-full w-24 bg-yellow-400"
+                className="h-full w-20 rounded-full bg-yellow-400 sm:w-24"
               />
             </div>
-
           </div>
         </motion.div>
       )}

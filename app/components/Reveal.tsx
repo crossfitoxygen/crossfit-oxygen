@@ -11,7 +11,7 @@ type Props = {
 export default function Reveal({
   children,
   delay = 0,
-  y = 60,
+  y = 30,
 }: Props) {
   return (
     <motion.div
@@ -25,12 +25,16 @@ export default function Reveal({
       }}
       viewport={{
         once: true,
-        amount: 0.2,
+        amount: 0.1,
+        margin: "0px 0px -40px 0px",
       }}
       transition={{
-        duration: 0.8,
+        duration: 0.45,
         delay,
         ease: "easeOut",
+      }}
+      style={{
+        willChange: "opacity, transform",
       }}
     >
       {children}
