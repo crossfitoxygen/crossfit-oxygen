@@ -22,10 +22,7 @@ const branches = [
   {
     name: "فرع الزقازيق",
     phone: "01155404011",
-    whatsapp: [
-      "201155404011",
-      "201155404099",
-    ],
+    whatsapp: ["201155404011", "201155404099"],
     address: "مدينة الزقازيق",
     map: "https://maps.app.goo.gl/nRoZ88PGwsV7fjn16?g_st=iw",
   },
@@ -43,41 +40,45 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-yellow-500/20 bg-black text-white">
       {/* Background Glow */}
 
-      <div className="absolute inset-0">
-        <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-yellow-500/10 blur-3xl sm:h-96 sm:w-96" />
+
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-yellow-500/10 blur-3xl sm:h-96 sm:w-96" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20">
+      <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20">
         {/* Logo */}
 
         <div className="flex justify-center">
           <Image
             src="/logo.png"
             alt="CrossFit Oxygen"
-            width={170}
-            height={170}
-            className="drop-shadow-[0_0_30px_rgba(250,204,21,.6)]"
+            width={150}
+            height={150}
+            loading="lazy"
+            className="drop-shadow-[0_0_25px_rgba(250,204,21,.5)] sm:h-42.5 sm:w-42.5"
           />
         </div>
 
-        <h2 className="mt-6 text-center text-4xl font-black text-yellow-400">
+        <h2 className="mt-6 text-center text-3xl font-black text-yellow-400 sm:text-4xl">
           CrossFit Oxygen
         </h2>
 
-        <p className="mx-auto mt-5 max-w-2xl text-center leading-8 text-gray-400">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-7 text-gray-400 sm:text-base sm:leading-8">
           CrossFit • Fitness • Strength • Community
         </p>
 
         {/* Branches */}
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 md:gap-8">
           {branches.map((branch) => (
             <div
               key={branch.name}
-              className="rounded-3xl border border-yellow-500/20 bg-zinc-900/60 p-8 transition duration-300 hover:border-yellow-400 hover:shadow-[0_0_25px_rgba(250,204,21,.2)]"
+              className="rounded-2xl border border-yellow-500/20 bg-zinc-900/60 p-5 transition-colors duration-300 hover:border-yellow-400 sm:rounded-3xl sm:p-8"
             >
-              <h3 className="mb-6 text-center text-2xl font-bold text-yellow-400">
+              {/* Branch Name */}
+
+              <h3 className="mb-6 text-center text-xl font-bold text-yellow-400 sm:text-2xl">
                 {branch.name}
               </h3>
 
@@ -87,7 +88,7 @@ export default function Footer() {
                 <div className="flex items-start gap-3">
                   <FaMapMarkerAlt className="mt-1 shrink-0 text-yellow-400" />
 
-                  <span className="text-gray-300">
+                  <span className="text-sm leading-7 text-gray-300 sm:text-base">
                     {branch.address}
                   </span>
                 </div>
@@ -99,7 +100,7 @@ export default function Footer() {
 
                   <a
                     href={`tel:${branch.phone}`}
-                    className="text-gray-300 transition hover:text-yellow-400"
+                    className="text-sm text-gray-300 transition-colors hover:text-yellow-400 sm:text-base"
                   >
                     {branch.phone}
                   </a>
@@ -107,7 +108,7 @@ export default function Footer() {
 
                 {/* Buttons */}
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex flex-col gap-3 pt-2">
                   {/* WhatsApp */}
 
                   {branch.whatsapp.length === 1 ? (
@@ -115,19 +116,19 @@ export default function Footer() {
                       href={`https://wa.me/${branch.whatsapp[0]}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 rounded-full bg-green-500 py-3 text-center font-bold transition hover:scale-105 hover:bg-green-600"
+                      className="flex min-h-12 items-center justify-center rounded-full bg-green-500 px-4 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-green-600 sm:text-base"
                     >
                       واتساب
                     </a>
                   ) : (
-                    <div className="flex flex-1 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       {branch.whatsapp.map((number, index) => (
                         <a
                           key={`${branch.name}-whatsapp-${number}`}
                           href={`https://wa.me/${number}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 rounded-full bg-green-500 py-3 text-center text-sm font-bold transition hover:scale-105 hover:bg-green-600"
+                          className="flex min-h-12 items-center justify-center rounded-full bg-green-500 px-3 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-green-600"
                           aria-label={`واتساب ${branch.name} رقم ${
                             index + 1
                           }`}
@@ -144,9 +145,12 @@ export default function Footer() {
                     href={branch.map}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 rounded-full border border-yellow-500 py-3 text-center font-bold text-yellow-400 transition hover:bg-yellow-400 hover:text-black"
+                    aria-label={`موقع ${branch.name} على الخريطة`}
+                    className="flex min-h-12 items-center justify-center gap-2 rounded-full border border-yellow-500 px-4 py-3 text-sm font-bold text-yellow-400 transition-colors duration-200 hover:bg-yellow-400 hover:text-black sm:text-base"
                   >
-                    الموقع
+                    <FaMapMarkerAlt size={16} />
+
+                    <span>الموقع</span>
                   </a>
                 </div>
               </div>
@@ -156,14 +160,14 @@ export default function Footer() {
 
         {/* Working Hours */}
 
-        <div className="mt-16 rounded-3xl border border-yellow-500/20 bg-zinc-900/60 p-8 text-center">
-          <FaClock className="mx-auto mb-5 text-4xl text-yellow-400" />
+        <div className="mt-12 rounded-2xl border border-yellow-500/20 bg-zinc-900/60 p-6 text-center sm:mt-16 sm:rounded-3xl sm:p-8">
+          <FaClock className="mx-auto mb-5 text-3xl text-yellow-400 sm:text-4xl" />
 
-          <h3 className="mb-6 text-3xl font-bold text-yellow-400">
+          <h3 className="mb-5 text-2xl font-bold text-yellow-400 sm:mb-6 sm:text-3xl">
             مواعيد العمل
           </h3>
 
-          <p className="leading-9 text-gray-300">
+          <p className="text-sm leading-8 text-gray-300 sm:text-base sm:leading-9">
             السبت - الخميس
             <br />
             7:00 AM - 2:00 AM
@@ -177,25 +181,25 @@ export default function Footer() {
 
         {/* Divider */}
 
-        <div className="mx-auto my-16 h-px w-40 bg-yellow-500/30" />
+        <div className="mx-auto my-12 h-px w-32 bg-yellow-500/30 sm:my-16 sm:w-40" />
 
         {/* Social */}
 
-        <h3 className="mb-8 text-center text-3xl font-bold text-yellow-400">
+        <h3 className="mb-7 text-center text-2xl font-bold text-yellow-400 sm:mb-8 sm:text-3xl">
           تابعنا
         </h3>
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
           {/* WhatsApp */}
 
           <a
             href="https://wa.me/201107802016"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-green-500"
             aria-label="واتساب"
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-colors duration-200 hover:bg-green-500 sm:h-16 sm:w-16"
           >
-            <FaWhatsapp size={28} />
+            <FaWhatsapp size={25} />
           </a>
 
           {/* Instagram */}
@@ -204,10 +208,10 @@ export default function Footer() {
             href="https://www.instagram.com/crossfit_oxygen_"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-pink-500"
             aria-label="Instagram"
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-colors duration-200 hover:bg-pink-500 sm:h-16 sm:w-16"
           >
-            <FaInstagram size={28} />
+            <FaInstagram size={25} />
           </a>
 
           {/* Facebook */}
@@ -216,10 +220,10 @@ export default function Footer() {
             href="https://www.facebook.com/share/19N5gxCUKi/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-blue-600"
             aria-label="Facebook"
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-colors duration-200 hover:bg-blue-600 sm:h-16 sm:w-16"
           >
-            <FaFacebookF size={26} />
+            <FaFacebookF size={23} />
           </a>
 
           {/* TikTok */}
@@ -228,17 +232,17 @@ export default function Footer() {
             href="https://www.tiktok.com/@crossfitoxygen"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-16 w-16 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition duration-300 hover:scale-110 hover:bg-white hover:text-black"
             aria-label="TikTok"
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-yellow-500 bg-zinc-900 transition-colors duration-200 hover:bg-white hover:text-black sm:h-16 sm:w-16"
           >
-            <FaTiktok size={26} />
+            <FaTiktok size={23} />
           </a>
         </div>
 
         {/* Copyright */}
 
-        <div className="mt-20 border-t border-yellow-500/20 pt-8">
-          <p className="text-center text-gray-500">
+        <div className="mt-16 border-t border-yellow-500/20 pt-7 sm:mt-20 sm:pt-8">
+          <p className="text-center text-sm leading-7 text-gray-500 sm:text-base">
             © {new Date().getFullYear()} CrossFit Oxygen
             <br />
             All Rights Reserved.

@@ -4,7 +4,7 @@ export const branches = [
     name: "فرع العبور",
     image: "/branches/obour.jpeg",
 
-    address: "مدينة العبور",
+    address: "مدينة العبور - الحي الترفيهي - مول ONE WAY",
 
     phone: "01107802016",
 
@@ -18,7 +18,7 @@ export const branches = [
     name: "فرع الزقازيق",
     image: "/branches/zagazig.jpg",
 
-    address: "الزقازيق",
+    address: "مدينة الزقازيق",
 
     phone: "01155404011",
 

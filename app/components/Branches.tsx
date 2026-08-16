@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { MapPin, Phone, Navigation } from "lucide-react";
 import { branches } from "../data/branches";
 
 export default function Branches() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="branches"
@@ -15,20 +17,20 @@ export default function Branches() {
         {/* Title */}
 
         <motion.h2
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           className="text-center text-3xl font-black text-yellow-400 sm:text-4xl md:text-5xl"
         >
           فروعنا
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.4 }}
           className="mx-auto mt-4 max-w-xl text-center text-sm leading-7 text-gray-400 sm:text-base"
         >
           اختر أقرب فرع إليك وابدأ رحلتك الرياضية
@@ -40,13 +42,19 @@ export default function Branches() {
           {branches.map((branch, index) => (
             <motion.div
               key={branch.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.45,
-                delay: index * 0.08,
-              }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={
+                shouldReduceMotion ? undefined : { opacity: 1, y: 0 }
+              }
+              viewport={{ once: true, amount: 0.1 }}
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 0.35,
+                      delay: index * 0.05,
+                    }
+              }
               className="group overflow-hidden rounded-2xl border border-yellow-500/20 bg-zinc-900 shadow-lg transition-[border-color,box-shadow] duration-300 hover:border-yellow-400 hover:shadow-yellow-500/10 sm:rounded-3xl"
             >
               {/* Image */}
@@ -57,7 +65,8 @@ export default function Branches() {
                   alt={branch.name}
                   fill
                   sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  className="object-cover sm:transition-transform sm:duration-500 sm:group-hover:scale-105"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />
@@ -111,7 +120,7 @@ export default function Branches() {
                         href={`https://wa.me/${number}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full bg-green-500 py-3 text-center text-sm font-bold text-white transition-colors duration-200 hover:bg-green-600 sm:text-base"
+                        className="flex min-h-12 items-center justify-center rounded-full bg-green-500 px-4 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-green-600 sm:text-base"
                       >
                         واتساب
                         {branch.whatsapp.length > 1
@@ -124,17 +133,18 @@ export default function Branches() {
                   {/* Google Maps */}
 
                   <a
-                    href={branch.map}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`موقع ${branch.name} على الخريطة`}
-                    className="flex min-h-12 items-center justify-center rounded-full border border-yellow-500 px-5 text-yellow-400 transition-colors duration-200 hover:bg-yellow-400 hover:text-black"
-                  >
-                    <ArrowUpRight size={21} />
-                    <span className="mr-2 text-sm font-bold sm:hidden">
-                      الموقع
+                      href={branch.map}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     aria-label={`موقع ${branch.name} على الخريطة`}
+                     className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-yellow-500 px-5 py-3 text-yellow-400 transition-colors duration-200 hover:bg-yellow-400 hover:text-black active:scale-[0.98] sm:w-auto sm:min-w-30"
+                     >
+                    <Navigation size={19} strokeWidth={2.2} />
+
+                   <span className="text-sm font-bold sm:text-base">
+                   الموقع
                     </span>
-                  </a>
+                    </a>
                 </div>
               </div>
             </motion.div>
