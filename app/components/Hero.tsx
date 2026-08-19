@@ -45,18 +45,25 @@ export default function Hero() {
       <section className="relative flex min-h-svh items-center justify-center overflow-hidden bg-black text-white">
         {/* Video Background */}
 
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/logo.png"
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover brightness-[0.62]"
-        >
-          <source src="/gym.mp4" type="video/mp4" />
-        </video>
+        {/* Desktop Video */}
+          <video
+         autoPlay
+         muted
+         loop
+         playsInline
+         preload="none"
+         aria-hidden="true"
+         className="absolute inset-0 hidden h-full w-full object-cover brightness-[0.65] md:block"
+   >
+       <source src="/gym.mp4" type="video/mp4" />
+         </video>
+
+{/* Mobile Background */}
+<div
+  aria-hidden="true"
+  className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
+  style={{ backgroundImage: "url('/hero.jpg')" }}
+/>
 
         {/* Overlay */}
 
