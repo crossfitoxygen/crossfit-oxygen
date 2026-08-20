@@ -1,56 +1,45 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Branches from "./components/Branches";
-import Gallery from "./components/gallery/Gallery";
-import Stats from "./components/Stats";
-import Services from "./components/Services";
-import WhyChoose from "./components/WhyChoose";
-import Marquee from "./components/Marquee";
-import Footer from "./components/Footer";
-import LoadingScreen from "./components/LoadingScreen";
-import BackToTop from "./components/BackToTop";
-import Reveal from "./components/Reveal";
-
 export default function Home() {
   return (
-    <>
-      <LoadingScreen />
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "#000",
+        color: "#facc15",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        padding: "24px",
+        textAlign: "center",
+      }}
+    >
+      <h1
+        style={{
+          fontSize: "42px",
+          fontWeight: 900,
+          marginBottom: "16px",
+        }}
+      >
+        CROSSFIT OXYGEN
+      </h1>
 
-      <main className="bg-black text-white">
-        <Navbar />
+      <p
+        style={{
+          color: "#fff",
+          fontSize: "20px",
+        }}
+      >
+        اختبار توافق الموقع مع Safari
+      </p>
 
-        <Hero />
-
-        <Reveal>
-          <Branches />
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <Gallery />
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <Stats />
-        </Reveal>
-
-        <Reveal delay={0.3}>
-          <Services />
-        </Reveal>
-
-        <Reveal delay={0.4}>
-          <WhyChoose />
-        </Reveal>
-
-        <Reveal delay={0.5}>
-          <Marquee />
-        </Reveal>
-
-        <Reveal delay={0.6}>
-          <Footer />
-        </Reveal>
-
-        <BackToTop />
-      </main>
-    </>
+      <p
+        style={{
+          color: "#999",
+          marginTop: "12px",
+        }}
+      >
+        إذا ظهرت هذه الصفحة على الآيفون، فالمشكلة داخل أحد مكونات الموقع.
+      </p>
+    </main>
   );
 }
